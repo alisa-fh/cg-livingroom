@@ -67,6 +67,7 @@ function main() {
     "resources/sofa.png",
     "resources/painting.png",
     "resources/wood1.png",
+    "resources/whitebrick.png",
 
   ], render);
 }
@@ -574,13 +575,13 @@ function draw(gl, n, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, canvas) {
   // ----------------------- WALLS   -----------------------
   //FRONT
   g_modelMatrix.setTranslate(-2.0, -12.0, 30.0);
-  drawBox(gl, n, 60.0, 22.0, 0.5, viewProjMatrix, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, g_cubeBuffer, g_cubeNormalBuffer, g_peachBuffer, -1);
+  drawBox(gl, n, 60.0, 22.0, 0.5, viewProjMatrix, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, g_cubeBuffer, g_cubeNormalBuffer, g_peachBuffer, 4);
   g_modelMatrix.translate(29.75, 0.0, -32.75);
-  drawBox(gl, n, 0.5, 22.0, 65.5, viewProjMatrix, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, g_cubeBuffer, g_cubeNormalBuffer, g_peachBuffer, -1);
+  drawBox(gl, n, 0.5, 22.0, 65.5, viewProjMatrix, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, g_cubeBuffer, g_cubeNormalBuffer, g_peachBuffer, 4);
   g_modelMatrix.translate(-59.5, 0.0, 0.0);
-  drawBox(gl, n, 0.5, 22.0, 65.5, viewProjMatrix, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, g_cubeBuffer, g_cubeNormalBuffer, g_peachBuffer, -1);
+  drawBox(gl, n, 0.5, 22.0, 65.5, viewProjMatrix, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, g_cubeBuffer, g_cubeNormalBuffer, g_peachBuffer, 4);
   g_modelMatrix.translate(29.75, 0.0, -33.0);
-  drawBox(gl, n, 60.0, 22.0, 0.5, viewProjMatrix, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, g_cubeBuffer, g_cubeNormalBuffer, g_peachBuffer, -1);
+  drawBox(gl, n, 60.0, 22.0, 0.5, viewProjMatrix, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, g_cubeBuffer, g_cubeNormalBuffer, g_peachBuffer, 4);
 }
 
 var g_matrixStack = []; // Array for storing a matrix
@@ -671,7 +672,7 @@ function initTextures(gl, n) {
 
     // Set the parameters so we can render any size image.
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
     console.log('before texparameter');
