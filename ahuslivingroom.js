@@ -163,14 +163,14 @@ function keydown(ev, gl, n, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, canvas) 
     case 38: // Down arrow key -> move the lamp down
       if (g_lampMove > -2) g_lampMove -= POS_STEP;
       break;
-    case 39: // Right arrow key -> the positive rotation of arm1 around the y-axis
+    case 39:
       if (g_eyeX < 27) {
         g_eyeX += 1;
         if (g_eyeX < 0) g_eyeZ += 0.4;
         if (g_eyeX > 0) g_eyeZ -= 0.4;
       }
       break;
-    case 37: // Left arrow key -> the negative rotation of arm1 around the y-axis
+    case 37:
       if (g_eyeX > -31) {
         g_eyeX -= 1;
         if (g_eyeX < 0) g_eyeZ -= 0.4;
@@ -191,7 +191,7 @@ function keydown(ev, gl, n, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, canvas) 
       break;
     default: return; // Skip drawing at no effective action
   }
-  // Draw the robot arm
+
   draw(gl, n, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, canvas);
 }
 
@@ -292,7 +292,6 @@ function initVertexBuffers(gl) {
     1.0, 0.9, 0.9,   1.0, 0.9, 0.9,  1.0, 0.9, 0.9,  1.0, 0.9, 0.9,      // v7-v4-v3-v2 down
     1.0, 0.9, 0.9,   1.0, 0.9, 0.9,  1.0, 0.9, 0.9,  1.0, 0.9, 0.9  　    // v4-v7-v6-v5 back
   ]);
-  //var orange = vec4(1.0, 0.4, 0.0, 1.0);
 
 
   g_cubeBuffer = initArrayBufferForLaterUse(gl, vertices, 3, gl.FLOAT);
@@ -369,29 +368,6 @@ function initNormalBufferForLaterUse(gl, data, num, type) {
   return buffer;
 }
 
-function initArrayBuffer(gl, attribute, data, type, num) {
-  // Create a buffer object
-  var buffer = gl.createBuffer();
-  if (!buffer) {
-    console.log('Failed to create the buffer object');
-    return false;
-  }
-  // Write date into the buffer object
-  gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-  gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
-
-  // Assign the buffer object to the attribute variable
-  var a_attribute = gl.getAttribLocation(gl.program, attribute);
-  if (a_attribute < 0) {
-    console.log('Failed to get the storage location of ' + attribute);
-    return false;
-  }
-  gl.vertexAttribPointer(a_attribute, num, type, false, 0, 0);
-  // Enable the assignment of the buffer object to the attribute variable
-  gl.enableVertexAttribArray(a_attribute);
-
-  return true;
-}
 
 // Coordinate transformation matrix
 var g_modelMatrix = new Matrix4(), g_mvpMatrix = new Matrix4();
@@ -675,17 +651,6 @@ function initTextures(gl, n) {
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-    console.log('before texparameter');
-/*    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    gl.texParameteri(
-      gl.TEXTURE_2D,
-      gl.TEXTURE_MIN_FILTER,
-      gl.LINEAR_MIPMAP_LINEAR
-    );
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
-    gl.generateMipmap(gl.TEXTURE_2D);*/
-
 
 
     gl.uniform1i(u_Sampler, 0);
@@ -704,7 +669,7 @@ function loadImage(url, callback) {
   return image;
 }
 
-var images = []
+var images = [];
 
 function loadImages(urls, callback) {
   var imagesToLoad = urls.length;
