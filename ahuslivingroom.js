@@ -15,12 +15,8 @@ var VSHADER_SOURCE =
   'void main() {\n' +
   '  gl_Position = u_MvpMatrix * a_Position;\n' +
   '  v_Position = vec3(u_ModelMatrix * a_Position);\n' +
-  // Shading calculation to make the arm look three-dimensional
- // '  vec3 lightDirection = normalize(vec3(0.0, 0.5, 0.7));\n' + // Light direction
   '  v_Color = a_Color;\n' +  // Robot color
- // '  vec3 normal = normalize((u_NormalMatrix * a_Normal).xyz);\n' +
   '  v_Normal = normalize(vec3(u_NormalMatrix * a_Normal));\n' +
- // '  float nDotL = max(dot(normal, lightDirection), 0.0);\n' +
   '  v_TexCoords = a_TexCoord;\n' +
   '}\n';
 
@@ -68,6 +64,10 @@ function main() {
     "resources/painting.png",
     "resources/wood1.png",
     "resources/whitebrick.png",
+    "resources/woodplank.png",
+    "resources/stalk.jpg",
+    "resources/rope1.png"
+
 
   ], render);
 }
@@ -445,7 +445,7 @@ function draw(gl, n, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, canvas) {
   // ----------------------- DANGLING LIGHT  -----------------------
   //Dangling Bit
   g_modelMatrix.setTranslate(-2.5, 3- g_lampMove, -5);
-  drawBox(gl, n, 0.5, 7 + g_lampMove, 0.5, viewProjMatrix, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, g_cubeBuffer, g_cubeNormalBuffer, g_orangeBuffer, -1);
+  drawBox(gl, n, 0.5, 7 + g_lampMove, 0.5, viewProjMatrix, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, g_cubeBuffer, g_cubeNormalBuffer, g_orangeBuffer, 7);
   //Lampshade
   g_modelMatrix.translate(0, -1, 0);
   drawBox(gl, n, 1, 1, 1, viewProjMatrix, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, g_trapBuffer, g_trapNormalBuffer, g_orangeBuffer, -1);
@@ -472,7 +472,7 @@ function draw(gl, n, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, canvas) {
   //STALK
   g_modelMatrix.translate(-0.5, 2.0, -0.5);
   g_modelMatrix.rotate(20.0, 0.0, 0.0, 1.0);
-  drawBox(gl, n, 0.2, 1, 0.2, viewProjMatrix, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, g_cubeBuffer, g_cubeNormalBuffer, g_orangeBuffer, -1);
+  drawBox(gl, n, 0.2, 1, 0.2, viewProjMatrix, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, g_cubeBuffer, g_cubeNormalBuffer, g_orangeBuffer, 6);
   //FLOWER
   g_modelMatrix.translate(0.0, 1.2, 0.0);
   g_modelMatrix.rotate(180.0, 0.0, 0.0, 1.0);
@@ -484,7 +484,7 @@ function draw(gl, n, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, canvas) {
   //STALK
   g_modelMatrix.translate(-0.1, 2.0, 0.5);
   g_modelMatrix.rotate(15.0, 1.0, 0.0, 1.0);
-  drawBox(gl, n, 0.2, 1, 0.2, viewProjMatrix, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, g_cubeBuffer, g_cubeNormalBuffer, g_orangeBuffer, -1);
+  drawBox(gl, n, 0.2, 1, 0.2, viewProjMatrix, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, g_cubeBuffer, g_cubeNormalBuffer, g_orangeBuffer, 6);
   //FLOWER
   g_modelMatrix.translate(0.0, 1.2, 0.0);
   g_modelMatrix.rotate(180.0, 0.0, 0.0, 1.0);
@@ -495,7 +495,7 @@ function draw(gl, n, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, canvas) {
   //STALK
   g_modelMatrix.translate(0.4, 2.0, 0.3);
   g_modelMatrix.rotate(20.0, 1.0, 0.0, -1.0);
-  drawBox(gl, n, 0.2, 1, 0.2, viewProjMatrix, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, g_cubeBuffer, g_cubeNormalBuffer, g_orangeBuffer, -1);
+  drawBox(gl, n, 0.2, 1, 0.2, viewProjMatrix, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, g_cubeBuffer, g_cubeNormalBuffer, g_orangeBuffer, 6);
   //FLOWER
   g_modelMatrix.translate(0.0, 1.2, 0.0);
   g_modelMatrix.rotate(180.0, 0.0, 0.0, 1.0);
@@ -558,6 +558,14 @@ function draw(gl, n, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, canvas) {
   drawBox(gl, n, 0.5, 22.0, 65.5, viewProjMatrix, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, g_cubeBuffer, g_cubeNormalBuffer, g_peachBuffer, 4);
   g_modelMatrix.translate(29.75, 0.0, -33.0);
   drawBox(gl, n, 60.0, 22.0, 0.5, viewProjMatrix, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, g_cubeBuffer, g_cubeNormalBuffer, g_peachBuffer, 4);
+
+  // ----------------------- FLOOR   -----------------------
+  g_modelMatrix.setTranslate(-2.0, -12.5, -2.0);
+  drawBox(gl, n, 60.0, 0.5, 70, viewProjMatrix, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, g_cubeBuffer, g_cubeNormalBuffer, g_peachBuffer, 5);
+
+  //----------------------- CEILING   -----------------------
+  g_modelMatrix.setTranslate(-2.0, 10.0, -2.0);
+  drawBox(gl, n, 60.0, 0.5, 70, viewProjMatrix, u_ModelMatrix, u_MvpMatrix, u_NormalMatrix, g_cubeBuffer, g_cubeNormalBuffer, g_peachBuffer, -1);
 }
 
 var g_matrixStack = []; // Array for storing a matrix

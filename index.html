@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Multi joint model</title>
+    <style>
+      html, body {margin: 0; height: 100%; overflow: hidden}
+    </style>
+  </head>
+
+  <body onload="main()">
+    <canvas id="webgl" width="400" height="400">
+    Please use a browser that supports "canvas"
+    </canvas>
+    <p><b>Controls:</b>&larr;&rarr;: change view,&uarr;&darr;: move lamp, xz: move chairs in and out, cv: open/close table</p>
+
+    <script src="./lib/webgl-utils.js"></script>
+    <script src="./lib/webgl-debug.js"></script>
+    <script src="./lib/cuon-utils.js"></script>
+    <script src="./lib/cuon-matrix.js"></script>
+    <script src="ahuslivingroom.js"></script>
+  </body>
+</html>
